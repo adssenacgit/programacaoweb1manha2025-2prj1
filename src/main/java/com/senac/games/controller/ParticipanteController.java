@@ -1,7 +1,9 @@
 package com.senac.games.controller;
 
 import com.senac.games.dto.request.ParticipanteDTORequest;
+import com.senac.games.dto.request.ParticipanteDTOUpdateRequest;
 import com.senac.games.dto.response.ParticipanteDTOResponse;
+import com.senac.games.dto.response.ParticipanteDTOUpdateResponse;
 import com.senac.games.entity.Participante;
 import com.senac.games.service.ParticipanteService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -43,7 +45,26 @@ public class ParticipanteController {
 
     @PostMapping("/criar")
     @Operation(summary = "Criar novo participante", description = "Endpoint para criar um novo registro de participante")
-    public ResponseEntity<ParticipanteDTOResponse> criarParticipante(@Valid @RequestBody ParticipanteDTORequest participante){
+    public ResponseEntity<ParticipanteDTOResponse> criarParticipante(
+            @Valid @RequestBody ParticipanteDTORequest participante){
         return ResponseEntity.status(HttpStatus.CREATED).body(participanteService.criarParticipante(participante));
+    }
+
+    @PutMapping("/atualizar/{participanteId}")
+    @Operation(summary = "Atualizar todos dados do participante", description = "Endpoint para atualizar o registro de participante")
+    public ResponseEntity<ParticipanteDTOResponse> atualizarParticipante(
+            @PathVariable("participanteId") Integer participanteId,
+            @RequestBody ParticipanteDTORequest participanteDTORequest){
+
+
+        return ResponseEntity.ok(participanteService.atualizarParticipante(participanteId, participanteDTORequest));
+    }
+
+    @PatchMapping("/atualizarStatus/{participanteId}")
+    @Operation(summary = "Atualizar campo status do participante", description = "Endpoint para atualizar o status do participante")
+    public ResponseEntity<ParticipanteDTOUpdateResponse> atualizarStatusParticipante(
+            @PathVariable("participanteId") Integer participanteId,
+            @RequestBody ParticipanteDTOUpdateRequest participanteDTOUpdateRequest){
+        return  ResponseEntity.ok(participanteService.atualizarStatusParticipante(participanteId, participanteDTOUpdateRequest));
     }
 }
