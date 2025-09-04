@@ -27,11 +27,11 @@ public class ParticipanteService {
     }
 
     public List<Participante> listarParticipantes(){
-        return this.participanteRepository.findAll();
+        return this.participanteRepository.listarParticipantes();
     }
 
     public Participante listarPorParticipanteId(Integer participanteId) {
-        return this.participanteRepository.findById(participanteId).orElse(null);
+        return this.participanteRepository.obterParticipantePeloId(participanteId);
     }
 
     public ParticipanteDTOResponse criarParticipante(ParticipanteDTORequest participanteDTOrequest) {
@@ -40,24 +40,7 @@ public class ParticipanteService {
         Participante participanteSave = this.participanteRepository.save(participante);
         ParticipanteDTOResponse participanteDTOResponse = modelMapper.map(participanteSave, ParticipanteDTOResponse.class);
         return participanteDTOResponse;
-
-        /*
-        participante.setNome(participanteDTO.getNome());
-        participante.setEmail(participanteDTO.getEmail());
-        participante.setIdentificacao(participanteDTO.getIdentificacao());
-        participante.setEndereco(participanteDTO.getEndereco());
-        participante.setStatus(participanteDTO.getStatus());
-        ParticipanteDTOResponse participanteDTOResponse = new ParticipanteDTOResponse();
-        participanteDTOResponse.setId(participanteSave.getId());
-        participanteDTOResponse.setNome(participanteSave.getNome());
-        participanteDTOResponse.setEmail(participanteSave.getEmail());
-        participanteDTOResponse.setIdentificacao(participanteSave.getIdentificacao());
-        participanteDTOResponse.setEndereco(participanteSave.getEndereco());
-        participanteDTOResponse.setStatus(participanteSave.getStatus());
-        return participanteDTOResponse;
-        */
     }
-
 
     public ParticipanteDTOResponse atualizarParticipante(Integer participanteId, ParticipanteDTORequest participanteDTORequest) {
         //antes de atualizar busca se existe o registro a ser atualizar
@@ -97,5 +80,9 @@ public class ParticipanteService {
         else{
             return null;
         }
+    }
+
+    public void apagarParticipante(Integer participanteId){
+        participanteRepository.apagadoLogicoParticipante(participanteId);
     }
 }
