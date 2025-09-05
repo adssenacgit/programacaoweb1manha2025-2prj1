@@ -56,14 +56,12 @@ public class ParticipanteController {
             @PathVariable("participanteId") Integer participanteId,
             @RequestBody ParticipanteDTORequest participanteDTORequest){
 
-
         return ResponseEntity.ok(participanteService.atualizarParticipante(participanteId, participanteDTORequest));
     }
 
     @PatchMapping("/atualizarStatus/{participanteId}")
     @Operation(summary = "Atualizar campo status do participante", description = "Endpoint para atualizar o status do participante")
     public ResponseEntity<ParticipanteDTOUpdateResponse> atualizarStatusParticipante(
-            @Valid
             @PathVariable("participanteId") Integer participanteId,
             @RequestBody ParticipanteDTOUpdateRequest participanteDTOUpdateRequest){
         return  ResponseEntity.ok(participanteService.atualizarStatusParticipante(participanteId, participanteDTOUpdateRequest));
