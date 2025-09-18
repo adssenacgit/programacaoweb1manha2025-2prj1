@@ -1,6 +1,7 @@
 package com.senac.games.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 @Entity
@@ -16,6 +17,13 @@ public class Jogo {
 
     @Column(name="jogo_status")
     private int status;
+
+    @Transient
+    @JsonProperty("idCategoria")
+    private int idCategoria;
+    public int getIdCategoria() {
+        return this.categoria.getId();
+    }
 
     @ManyToOne
     @JsonIgnore
@@ -53,4 +61,5 @@ public class Jogo {
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
+
 }
