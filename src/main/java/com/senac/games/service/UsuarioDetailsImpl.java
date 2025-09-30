@@ -29,4 +29,11 @@ public class UsuarioDetailsImpl implements UserDetails {
     public String getUsername() {
         return usuario.getLogin();
     }
+
+    public Integer getIdUsuario(){
+        return usuario.getId();
+    }
+    public String getNomeUsuario(){
+        return usuario.getNome();
+    }
 }
